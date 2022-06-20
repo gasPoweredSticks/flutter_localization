@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'app_locale.dart';
 
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppLocale(
+    return ChangeNotifierProvider<AppLocale>(
+      create: (_) => AppLocale(locale: Locale('en')),
       child: App(),
-      locale: Locale('en'),
     );
   }
 }
@@ -37,7 +38,7 @@ class App extends StatelessWidget {
         Locale('en', ''),
         Locale('ar', ''),
       ],
-      locale: AppLocale.of(context).locale,
+      locale: context.watch<AppLocale>().locale,
       home: LanguageSelector(title: _title),
     );
   }
@@ -67,7 +68,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
               setState(() {
                 _direction = TextDirection.ltr;
               });
-              AppLocale.change(context, Locale('en'));
+              
+              context.read<AppLocale>().change(Locale('en'));
+              
               Navigator.pop(context);
             },
             child: const Text('English'),
@@ -77,7 +80,8 @@ class _LanguageSelectorState extends State<LanguageSelector> {
               setState(() {
                 _direction = TextDirection.rtl;
               });
-              AppLocale.change(context, Locale('ar'));
+              context.read<AppLocale>().change(Locale('ar'));
+              
               Navigator.pop(context);
             },
             child: const Text('عربي'),
@@ -99,31 +103,14 @@ class _LanguageSelectorState extends State<LanguageSelector> {
       body: Center(
         child: CupertinoButton(
           onPressed: () => _showActionSheet(context),
-          child: Column(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('Language', style: TextStyle(color: Colors.black87)),
-              Text('اللغة', style: TextStyle(color: Colors.black87)),
-              Text(context.l10n.helloWorld,
+              Text(context.l10n.langTitle,
                   style: TextStyle(color: Colors.black87)),
-              Directionality(
-                textDirection: _direction,
-                child: Text(
-                  'English',
-                  textDirection: _direction,
-                ),
+              Text(
+                context.l10n.language,
               ),
-              Directionality(
-                textDirection: _direction,
-                child: Text(
-                  'هذه الكتابة بالعربي',
-                  textDirection: _direction,
-                ),
-              ),
-              TextField(
-                textDirection: _direction,
-                decoration: InputDecoration(labelText: 'Input'),
-              )
             ],
           ),
         ),
