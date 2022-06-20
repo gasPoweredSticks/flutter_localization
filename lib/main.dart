@@ -61,7 +61,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text('Select Language'),
+        title: Text(context.l10n.selectLang),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             onPressed: () {
@@ -91,7 +91,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Cancel'),
+          child: Text(context.l10n.cancel),
         ),
       ),
     );

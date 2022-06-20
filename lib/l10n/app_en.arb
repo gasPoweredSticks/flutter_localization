@@ -1,4 +1,6 @@
 {
   "langTitle": "Language",
-  "language": "English"
+  "language": "English",
+  "selectLang": "Select Language",
+  "cancel": "Cancel"
 }

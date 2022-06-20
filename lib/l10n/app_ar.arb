@@ -1,4 +1,6 @@
 {
   "langTitle": "اللغة",
-  "language": "عربي"
+  "language": "عربي",
+  "selectLang": "اختر اللغة",
+  "cancel": "إلغاء"
 }
