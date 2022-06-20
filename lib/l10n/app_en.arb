@@ -1,0 +1,6 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "This is the hello message for users"
+  }
+}
